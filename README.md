@@ -22,5 +22,5 @@ To do
 ## Contributing models
 | Model | Version | Repository Link | DOI |
 |-------|---------|-----------------|-----|
-| WM | To do | To do | To do |
-| PLEXOS | 8.0 | To do | To do |
+| WM | 1.0.0 | https://github.com/IMMM-SFA/wm | http://doi.org/10.5281/zenodo.1225344 |
+| PLEXOS | 8.0 | | |
