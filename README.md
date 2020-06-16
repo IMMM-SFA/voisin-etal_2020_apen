@@ -1,5 +1,5 @@
 
-# voison-etal_2020_apen
+# voisin-etal_2020_apen
 Western US grid diversity and spatial extent mitigates threat of regional changes in water availability.
 
 ## Abstract
