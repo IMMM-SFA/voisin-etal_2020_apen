@@ -1,0 +1,152 @@
+---
+title: "IM3 Interchange Analysis"
+author: "Created by: `r Sys.info()['user']`"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: 
+  html_document: 
+    css: custom.css
+    toc: false
+---
+
+```{r setOptions, echo=FALSE, warning=FALSE, message=FALSE, error=FALSE}
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# Set up default options for chunks (sections), turn off error or warning messages.
+knitr::opts_chunk$set(echo=FALSE, comment=NA, warning=FALSE, message=FALSE, include=TRUE,
+                      fig.path=paste0('html_plots/',scenario.name,"-"),dev='png')
+
+# Load required R libraries
+
+library(knitr)
+
+# Set figure height and text size options
+fig.height.gen.types = 8
+fig.height.reserves = 8
+fig.height.duration = 8
+fig.height.tall= 8
+element.text.size = 20
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+```
+
+
+
+***
+## Net Interchange Historical (TWh)
+```{r interchange-hist,  fig.height=8, fig.width=18, dev.args=list(pointsize=35)}
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ####
+layout(matrix(c(1,2,3), 1, 3,byrow=TRUE))
+
+custom_order=c("Basin","S. Cal.","Rockies","Northwest","Mexico","Southwest","N. Cal.","Canada")
+interchange_plot(drydatahist,15,custom_order,1,"10th Percentile WSGIF Historical",c("grid","name","axis"))
+basescale=sum(drydatahist)/(360-15*8) #Scale in GWh/degree
+custom_gap=-(sum(meddatahist)/basescale-360)/8 #Adjust the gap to scales equal
+checkscale=sum(meddatahist)/(360-custom_gap*8) #Double check that scales now same
+interchange_plot(meddatahist,custom_gap,custom_order,1,"Median WSGIF Historical",c("grid","name","axis"))
+custom_gap=-(sum(wetdatahist)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(wetdatahist,custom_gap,custom_order,1,"90th Percentile WSGIF Historical",c("grid","name","axis"))
+
+
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ####
+```
+
+
+
+
+***
+## Net Interchange Historical By Quarter (TWh)
+```{r interchange-histQ,  fig.height=8*4, fig.width=18, dev.args=list(pointsize=25)}
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ####
+layout(matrix(c(1:12), 4, 3,byrow=TRUE))
+
+custom_order=c("Basin","S. Cal.","Rockies","Northwest","Mexico","Southwest","N. Cal.","Canada")
+
+custom_gap=-(sum(drydatahistQ1)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(drydatahistQ1,custom_gap,custom_order,1,"10th Percentile WSGIF Historical Q1",c("grid","name","axis"))
+custom_gap=-(sum(meddatahistQ1)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(meddatahistQ1,custom_gap,custom_order,1,"Median WSGIF Historical Q1",c("grid","name","axis"))
+custom_gap=-(sum(wetdatahistQ1)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(wetdatahistQ1,custom_gap,custom_order,1,"90th Percentile WSGIF Historical Q1",c("grid","name","axis"))
+
+custom_gap=-(sum(drydatahistQ2)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(drydatahistQ2,custom_gap,custom_order,1,"10th Percentile WSGIF Historical Q2",c("grid","name","axis"))
+custom_gap=-(sum(meddatahistQ2)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(meddatahistQ2,custom_gap,custom_order,1,"Median WSGIF Historical Q2",c("grid","name","axis"))
+custom_gap=-(sum(wetdatahistQ2)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(wetdatahistQ2,custom_gap,custom_order,1,"90th Percentile WSGIF Historical Q2",c("grid","name","axis"))
+
+custom_gap=-(sum(drydatahistQ3)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(drydatahistQ3,custom_gap,custom_order,1,"10th Percentile WSGIF Historical Q3",c("grid","name","axis"))
+custom_gap=-(sum(meddatahistQ3)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(meddatahistQ3,custom_gap,custom_order,1,"Median WSGIF Historical Q3",c("grid","name","axis"))
+custom_gap=-(sum(wetdatahistQ3)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(wetdatahistQ3,custom_gap,custom_order,1,"90th Percentile WSGIF Historical Q3",c("grid","name","axis"))
+
+custom_gap=-(sum(drydatahistQ4)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(drydatahistQ4,custom_gap,custom_order,1,"10th Percentile WSGIF Historical Q4",c("grid","name","axis"))
+custom_gap=-(sum(meddatahistQ4)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(meddatahistQ4,custom_gap,custom_order,1,"Median WSGIF Historical Q4",c("grid","name","axis"))
+custom_gap=-(sum(wetdatahistQ4)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(wetdatahistQ4,custom_gap,custom_order,1,"90th Percentile WSGIF Historical Q4",c("grid","name","axis"))
+
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ####
+```
+
+
+***
+## Net Interchange Future (TWh)
+```{r interchange-fut,  fig.height=8, fig.width=18,dev.args=list(pointsize=35)}
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ####
+layout(matrix(c(1,2,3), 1, 3,byrow=TRUE))
+
+custom_gap=-(sum(drydatafut)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(drydatafut,custom_gap,custom_order,1,"10th Percentile WSGIF Future",c("grid","name","axis"))
+custom_gap=-(sum(meddatafut)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(meddatafut,custom_gap,custom_order,1,"Median WSGIF Future",c("grid","name","axis"))
+custom_gap=-(sum(wetdatafut)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(wetdatafut,custom_gap,custom_order,1,"90th Percentile WSGIF Future",c("grid","name","axis"))
+
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ####
+```
+
+
+
+
+
+## Net Interchange Future By Quarter (TWh)
+```{r interchange-futQ,  fig.height=8*4, fig.width=18, dev.args=list(pointsize=25)}
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ####
+layout(matrix(c(1:12), 4, 3,byrow=TRUE))
+
+custom_order=c("Basin","S. Cal.","Rockies","Northwest","Mexico","Southwest","N. Cal.","Canada")
+
+
+custom_gap=-(sum(drydatafutQ1)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(drydatafutQ1,custom_gap,custom_order,1,"10th Percentile WSGIF Future Q1",c("grid","name","axis"))
+custom_gap=-(sum(meddatafutQ1)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(meddatafutQ1,custom_gap,custom_order,1,"Median WSGIF Future Q1",c("grid","name","axis"))
+custom_gap=-(sum(wetdatafutQ1)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(wetdatafutQ1,custom_gap,custom_order,1,"90th Percentile WSGIF Future Q1",c("grid","name","axis"))
+
+custom_gap=-(sum(drydatafutQ2)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(drydatafutQ2,custom_gap,custom_order,1,"10th Percentile WSGIF Future Q2",c("grid","name","axis"))
+custom_gap=-(sum(meddatafutQ2)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(meddatafutQ2,custom_gap,custom_order,1,"Median WSGIF Future Q2",c("grid","name","axis"))
+custom_gap=-(sum(wetdatafutQ2)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(wetdatafutQ2,custom_gap,custom_order,1,"90th Percentile WSGIF Future Q2",c("grid","name","axis"))
+
+custom_gap=-(sum(drydatafutQ3)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(drydatafutQ3,custom_gap,custom_order,1,"10th Percentile WSGIF Future Q3",c("grid","name","axis"))
+custom_gap=-(sum(meddatafutQ3)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(meddatafutQ3,custom_gap,custom_order,1,"Median WSGIF Future Q3",c("grid","name","axis"))
+custom_gap=-(sum(wetdatafutQ3)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(wetdatafutQ3,custom_gap,custom_order,1,"90th Percentile WSGIF Future Q3",c("grid","name","axis"))
+
+custom_gap=-(sum(drydatafutQ4)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(drydatafutQ4,custom_gap,custom_order,1,"10th Percentile WSGIF Future Q4",c("grid","name","axis"))
+custom_gap=-(sum(meddatafutQ4)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(meddatafutQ4,custom_gap,custom_order,1,"Median WSGIF Future Q4",c("grid","name","axis"))
+custom_gap=-(sum(wetdatafutQ4)/basescale-360)/8 #Adjust the gap to scales equal
+interchange_plot(wetdatafutQ4,custom_gap,custom_order,1,"90th Percentile WSGIF Future Q4",c("grid","name","axis"))
+
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ####
+```
+

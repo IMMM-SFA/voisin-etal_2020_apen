@@ -1,0 +1,124 @@
+---
+title: "IM3 Run Analysis"
+author: "Created by: `r Sys.info()['user']`"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: 
+  html_document: 
+    css: custom.css
+    toc: yes
+---
+
+```{r setOptions, echo=FALSE, warning=FALSE, message=FALSE, error=FALSE}
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# Set up default options for chunks (sections), turn off error or warning messages.
+knitr::opts_chunk$set(echo=FALSE, comment=NA, warning=FALSE, message=FALSE, include=TRUE,
+                      fig.path=paste0('html_plots/',scenario.name,"-"),dev="png",fig.width=18)
+                      
+
+# Load required R libraries
+library(data.table)
+library(ggplot2)
+library(plyr)
+library(knitr)
+library(rplexos)
+library(gridExtra)
+# Set figure height and text size options
+fig.height.gen.types = 8
+fig.height.reserves = 8
+fig.height.duration = 8
+fig.height.tall= 8
+element.text.size = 20
+
+# Create plot theme to use for generic plot template
+plot.theme = theme_gray() + 
+  theme(axis.text.x = element_text(angle = -90, hjust=0, size=element.text.size),
+        axis.title = element_text(size = 16),
+        axis.text.y = element_text(size = 20),
+        strip.text.x = element_text(size = 20),
+        strip.text.y = element_text(size = 20),
+        legend.text = element_text(size = 16))
+        
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+```
+
+
+
+
+***
+## Quarterly Flows Scatter WSGIF, All Regions except Mexico
+```{r seasonal-flows-scatterWSGIF,  fig.height=10}
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Q.flows$from_RSG<-factor(annual.flows$from_RSG,levels=c("Canada","N. Cal.","Basin","Rockies","Mexico","S. Cal.","Northwest","Southwest"))
+
+
+Q.flows$to_RSG<-factor(annual.flows$to_RSG,levels=c("Canada","N. Cal.","Basin","Rockies","Mexico","S. Cal.","Northwest","Southwest"))
+
+
+ggplot(data=Q.flows[abs(TWh)>0&to_RSG!="Mexico"&from_RSG!="Mexico"&to_RSG!="Northwest"],(aes(x=WSGIF,y=TWh,color=Q)))+ 
+  geom_point()+
+  facet_grid(from_RSG~to_RSG,labeller=as_labeller(GCM_names),scales="free",space="free",switch="y")+
+  geom_hline(yintercept=0,linetype='dotdash')+
+  plot.theme+
+  theme(legend.position="right",plot.title=element_text(hjust=0.5))+
+  labs(color="Quarter",title="to Region")+
+  ylab("Net Flow from Region (TWh)")+xlab("WECC WSGIF")+
+  expand_limits(y=0)
+
+
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+```
+
+
+***
+## Quarterly Flows Scatter, All Regions except Mexico
+```{r seasonal-flows-scatter, fig.height=10}
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ggplot(data=Q.flows[abs(TWh)>0&to_RSG!="Mexico"&from_RSG!="Mexico"&to_RSG!="Northwest"],(aes(x=Hydro.GWh/1000,RCP,y=TWh,color=Q)))+
+  geom_point()+
+  facet_grid(from_RSG~to_RSG,labeller=as_labeller(GCM_names),scales="free",space="free",switch="y")+
+  geom_hline(yintercept=0,linetype='dotdash')+
+  plot.theme+
+  theme(legend.position="right",plot.title=element_text(hjust=0.5))+
+  labs(color="From Region",title="to Region")+
+  ylab("Net Flow from Region (TWh)")+xlab("Total WECC Hydro Generation TWh")+
+  expand_limits(y=0)
+
+
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+```
+
+
+
+
+
+
+***
+## Annual Flows Tests
+```{r annual-flows-tests, fig.width=10}
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+kable(NW_SCal.Test,format.args=list(digits=3),caption="Northwest - S Cal Flows")
+kable(NW_NCal.Test,format.args=list(digits=3),caption="Northwest - N Cal Flows")
+kable(NCal_SCal.Test,format.args=list(digits=3),caption="N Cal - S Cal Flows")
+kable(SW_SCal.Test,format.args=list(digits=3),caption="SW - S Cal Flows")
+kable(Rock_SW.Test,format.args=list(digits=3),caption="Rockies - SW Flows")
+kable(Basin_SW.Test,format.args=list(digits=3),caption="Basin - SW Flows")
+
+kable(NW_SCal.Test.Q3,format.args=list(digits=3),caption="Q3 Northwest - S Cal Flows")
+kable(NW_NCal.Test.Q3,format.args=list(digits=3),caption="Q3 Northwest - N Cal Flows")
+kable(NCal_SCal.Test.Q3,format.args=list(digits=3),caption="Q3 N Cal - S Cal Flows")
+kable(SW_SCal.Test.Q3,format.args=list(digits=3),caption="Q3 SW - S Cal Flows")
+kable(Rock_SW.Test.Q3,format.args=list(digits=3),caption="Q3 Rockies - SW Flows")
+kable(Basin_SW.Test.Q3,format.args=list(digits=3),caption="Q3 Basin - SW Flows")
+
+
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+```
+
+
+
+
+
+
+
