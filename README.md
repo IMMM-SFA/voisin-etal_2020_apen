@@ -20,10 +20,10 @@ UPDATE: journal reference here after acceptance
 ## Data reference
 
 ### Input data
-To do
+Nathalie Voisin, Ana Dyreson, Tao Fu, Matt O'Connell, Sean Turner, Tian Zhou, Jordan Macknick (2020). PLEXOS Inputs for Voisin et al. 2020 [Data set]. DOI to be minted after acceptance.
 
 ### Output data
-To do
+Nathalie Voisin, Ana Dyreson, Tao Fu, Matt O'Connell, Sean Turner, Tian Zhou, Jordan Macknick (2020). Results for Voisin et al. 2020 [Data set]. DOI to be minted after acceptance.
 
 ## Contributing models
 | Model | Version | Repository Link | DOI |
