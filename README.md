@@ -1,6 +1,6 @@
 
 # voisin-etal_2020_apen
-__Climate change impact on water availability and its propagation through the Western U.S. power grid__  
+__Impact of climate change on water availability and its propagation through the Western U.S. power grid__  
 *Nathalie Voisin<sup>1,2 \*</sup>, Ana Dyreson<sup>3</sup>, Tao Fu<sup>4</sup>, Matt O’Connell<sup>3</sup>, Sean Turner<sup>1</sup>, Tian Zhou<sup>4</sup>, Jordan Macknick<sup>3</sup>*  
 1 Pacific Northwest National Laboratory, Seattle, WA  
 2 University of Washington, Seattle, WA  
@@ -15,7 +15,7 @@ Climate change is expected to affect the availability of water for electricity g
 The R code in this repository can be used to generate the figures and results as discussed in the paper.
 
 ## Journal reference
-Applied Energy
+Voisin, Nathalie, Dyreson, Ana, Fu, Tao, O'Connell, Matt, Turner, Sean W. D., Zhou, Tian, & Macknick, Jordan. Impact of climate change on water availability and its propagation through the Western U.S. power grid. United Kingdom. doi:10.1016/j.apenergy.2020.115467.
 
 ## Data reference
 
