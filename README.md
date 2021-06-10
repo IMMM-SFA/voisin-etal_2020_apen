@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4924626.svg)](https://doi.org/10.5281/zenodo.4924626)
 
 # voisin-etal_2020_apen
 __Impact of climate change on water availability and its propagation through the Western U.S. power grid__  
